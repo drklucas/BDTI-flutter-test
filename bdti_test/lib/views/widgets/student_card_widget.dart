@@ -17,6 +17,7 @@ class StudentCardWidget extends StatefulWidget {
 class _StudentCardWidgetState extends State<StudentCardWidget> {
   int? _i;
   RollCallController? _controller;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -34,12 +35,21 @@ class _StudentCardWidgetState extends State<StudentCardWidget> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Editar Nome'),
-          content: TextFormField(
-            controller: _nameC,
-            decoration: const InputDecoration(
-              icon: Icon(Icons.person),
-              hintText: 'Insira um nome',
-              labelText: 'Nome',
+          content: Form(
+            key: _formKey,
+            child: TextFormField(
+              controller: _nameC,
+              decoration: const InputDecoration(
+                icon: Icon(Icons.person),
+                hintText: 'Insira um nome',
+                labelText: 'Nome',
+              ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Insira um nome!';
+                }
+                return null;
+              },
             ),
           ),
           actions: <Widget>[
@@ -50,7 +60,7 @@ class _StudentCardWidgetState extends State<StudentCardWidget> {
               child: const Text('Cancelar'),
               onPressed: () {
                 Navigator.of(context).pop();
-                _nameC.clear(); 
+                _nameC.clear();
               },
             ),
             TextButton(
@@ -59,9 +69,11 @@ class _StudentCardWidgetState extends State<StudentCardWidget> {
                 ),
                 child: const Text('Enviar'),
                 onPressed: () {
-                  _controller!.edit(_nameC.text, _i!);
-                  Navigator.of(context).pop();
-                  _nameC.clear(); 
+                  if (_formKey.currentState!.validate()) {
+                    _controller!.edit(_nameC.text, _i!);
+                    Navigator.of(context).pop();
+                    _nameC.clear();
+                  }
                 }),
           ],
         );
