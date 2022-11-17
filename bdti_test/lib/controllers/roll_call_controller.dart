@@ -22,8 +22,7 @@ abstract class _RollCallController with Store {
 
   @action
   add(String name) {
-    var student = Student.fromMap({'name': name});
-    students.add(student);
+    students.add(Student.fromMap({'name': name}));
   }
 
   @action

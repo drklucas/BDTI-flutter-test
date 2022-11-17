@@ -1,6 +1,7 @@
 import 'package:bdti_test/controllers/roll_call_controller.dart';
 import 'package:bdti_test/views/widgets/student_list_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 class RollCallScreenWidget extends StatefulWidget {
   const RollCallScreenWidget({Key? key}) : super(key: key);
@@ -80,9 +81,13 @@ class _RollCallScreenWidgetState extends State<RollCallScreenWidget> {
             textAlign: TextAlign.center,
           ),
           backgroundColor: Colors.green.shade800),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-        child: StudentListWidget(_controller),
+      body: Observer(
+        builder: (_) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+            child: _controller.students.isNotEmpty ? StudentListWidget(_controller) : const Center(child: Text('Não há estudantes')),
+          );
+        }
       ),
     );
   }
