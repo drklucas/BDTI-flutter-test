@@ -1,4 +1,4 @@
-import 'package:bdti_test/views/roll_call_screen.dart';
+import 'package:bdti_test/views/screens/roll_call_screen_widget.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       
         primarySwatch: Colors.blue,
       ),
-      home: const RollCallScreen()
+      home: const RollCallScreenWidget()
     );
   }
 }
