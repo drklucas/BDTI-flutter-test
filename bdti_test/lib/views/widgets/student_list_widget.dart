@@ -17,7 +17,6 @@ class _StudentListWidgetState extends State<StudentListWidget> {
   @override
   void initState() {
     _controller = widget.controller; 
-    _controller!.get(); 
     super.initState();
   }
 

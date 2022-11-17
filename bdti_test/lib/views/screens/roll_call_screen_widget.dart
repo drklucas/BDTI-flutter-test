@@ -68,6 +68,12 @@ class _RollCallScreenWidgetState extends State<RollCallScreenWidget> {
   }
 
   @override
+  void initState() {
+    _controller.get(); 
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
